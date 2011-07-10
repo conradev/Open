@@ -1,0 +1,10 @@
+Package: com.conradkramer.open
+Name: Open
+Depends: com.zimm.libdisplaystack, mobilesubstrate
+Version: 1.0
+Architecture: iphoneos-arm
+Description: Opens applications from the commandline.
+Maintainer: Conrad Kramer <support@kramerapps.com>
+Author: Conrad Kramer <support@kramerapps.com>
+Section: System
+Tag: role::hacker, purpose::extension
