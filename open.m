@@ -1,30 +1,31 @@
-#import <Foundation/Foundation.h>
-#import <AppSupport/CPDistributedMessagingCenter.h>
+#include <CoreFoundation/CoreFoundation.h>
+#include <stdio.h>
 
-#import <stdio.h>
+#ifndef SPRINGBOARDSERVICES_H_
+extern int SBSLaunchApplicationWithIdentifier(CFStringRef identifier, Boolean suspended);
+extern CFStringRef SBSApplicationLaunchingErrorString(int error);
+#endif
 
-int main(int argc, char **argv, char **envp) {
-    if(!argv[1]) {
-        fprintf(stderr, "Usage: open com.application.identifier\n");
-        return 1;
+int main(int argc, char **argv, char **envp)
+{
+    int ret;
+
+    if (argc < 2) {
+        fprintf(stderr, "Usage: %s com.application.identifier \n", argv[0]);
+        return -1;
     }
-    
-    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-    
-    NSString *identifier = [[NSString alloc] initWithUTF8String:argv[1]];
-    NSDictionary *userInfo = [NSDictionary dictionaryWithObject:identifier forKey:@"identifier"];
 
-    CPDistributedMessagingCenter *messagingCenter = [CPDistributedMessagingCenter centerNamed:@"com.conradkramer.open.server"];
-    NSDictionary *status = [messagingCenter sendMessageAndReceiveReplyName:@"open" userInfo:userInfo];
-    int returnValue = [[status objectForKey:@"status"] intValue];
-    
-    [pool release];
-    
-    if (returnValue == 1) {
-        fprintf(stderr, "Application with identifier %s not found\n", argv[1]);
+    CFStringRef identifier = CFStringCreateWithCString(kCFAllocatorDefault, argv[1], kCFStringEncodingUTF8);
+    assert(identifier != NULL);
+
+    ret = SBSLaunchApplicationWithIdentifier(identifier, FALSE);
+
+    if (ret != 0) {
+        fprintf(stderr, "Couldn't open application: %s. Reason: %i, ", argv[1], ret);
+        CFShow(SBSApplicationLaunchingErrorString(ret));
     }
-    
-    return returnValue;
+
+    CFRelease(identifier);
+
+    return ret;
 }
-
-// vim:ft=objc
