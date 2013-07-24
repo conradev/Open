@@ -1,9 +1,13 @@
 Package: com.conradkramer.open
-Name: Open
-Version: 1.0
+Version: 1.1
 Architecture: iphoneos-arm
-Description: Opens applications from the commandline.
-Maintainer: Conrad Kramer <support@kramerapps.com>
+Maintainer: BigBoss <bigboss@thebigboss.org>
 Author: Conrad Kramer <support@kramerapps.com>
 Section: System
-Tag: role::hacker, purpose::extension
+Description: launch apps from the command-line
+Name: Open
+Depiction: http://moreinfo.thebigboss.org/moreinfo/depiction.php?file=openData
+Website: http://moreinfo.thebigboss.org/moreinfo/depiction.php?file=openData
+Sponsor: thebigboss.org <http://thebigboss.org>
+dev: conradkramer
+Tag: purpose::console, role::hacker
