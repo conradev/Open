@@ -1,6 +1,7 @@
 #include <CoreFoundation/CoreFoundation.h>
 #include <stdio.h>
 #include <UIKit/UIKit.h>
+#include <MobileCoreServices/LSApplicationWorkspace.h>
 
 #ifndef SPRINGBOARDSERVICES_H_
 extern int SBSLaunchApplicationWithIdentifier(CFStringRef identifier, Boolean suspended);
@@ -24,11 +25,11 @@ int main(int argc, char **argv, char **envp)
     if (ret != 0) {
         fprintf(stderr, "Couldn't open application: %s. Reason: %i, ", argv[1], ret);
         CFShow(SBSApplicationLaunchingErrorString(ret));
-    }
 
-    NSURL *url = [NSURL URLWithString:(NSString*)identifier];
-    if (![[UIApplication sharedApplication] openURL:url]) {
-        fprintf(stderr, "openURL %s also failed.\n", [[url absoluteString] UTF8String]);
+        NSURL *url = [NSURL URLWithString:(NSString*)identifier];
+        if (![[LSApplicationWorkspace defaultWorkspace] openURL:url]) {
+            fprintf(stderr, "openURL %s also failed.\n", [[url absoluteString] UTF8String]);
+        }
     }
 
     CFRelease(identifier);
