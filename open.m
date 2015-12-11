@@ -29,6 +29,8 @@ int main(int argc, char **argv, char **envp)
         NSURL *url = [NSURL URLWithString:(NSString*)identifier];
         if (![[LSApplicationWorkspace defaultWorkspace] openURL:url]) {
             fprintf(stderr, "openURL %s also failed.\n", [[url absoluteString] UTF8String]);
+        } else {
+            ret = 0;
         }
     }
 
