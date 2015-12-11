@@ -1,6 +1,5 @@
 #include <CoreFoundation/CoreFoundation.h>
 #include <stdio.h>
-#include <UIKit/UIKit.h>
 #include <MobileCoreServices/LSApplicationWorkspace.h>
 
 #ifndef SPRINGBOARDSERVICES_H_
